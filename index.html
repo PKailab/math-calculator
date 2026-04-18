@@ -1,30 +1,58 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="hi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- यह लाइन ऐप को मोबाइल पर ज़ूम होने से रोकती है और उसे ऐप जैसा फील देती है -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    
+    <title>Math Calculator Pro</title>
+
+    <!-- एंड्राइड और iOS के लिए बेहतर अपीयरेंस -->
     <meta name="theme-color" content="#1a202c" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="mobile-web-app-capable" content="yes" />
     
-    <!-- मैनिफेस्ट लिंक -->
+    <!-- PWA मैनिफेस्ट -->
     <link rel="manifest" href="/manifest.json" /> 
     
-    <title>Math Calculator</title>
+    <!-- फाविकोन और आइकॉन (सुनिश्चित करें कि आपकी फाइलों के नाम यही हों) -->
+    <link rel="icon" type="image/png" href="/icon-512.png" />
+    <link rel="apple-touch-icon" href="/icon-512.png" />
 
-    <!-- Service Worker रजिस्ट्रेशन (APK के लिए सबसे जरूरी कोड) -->
+    <!-- सर्विस वर्कर: ऑफलाइन चलाने के लिए -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker Registered!'))
-            .catch(err => console.log('Service Worker Error', err));
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(reg => console.log('Service Worker: Active (APK Mode)'))
+            .catch(err => console.log('Service Worker: Failed', err));
         });
       }
     </script>
+
+    <style>
+      /* जब तक ऐप लोड न हो, तब तक एक स्मूथ बैकग्राउंड दिखे */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #1a202c; /* अपनी थीम के हिसाब से बदलें */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden; /* स्क्रीन को ऐप की तरह फिक्स करने के लिए */
+      }
+      #root {
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
   </head>
   <body>
+    <!-- बिना JavaScript के ऐप नहीं चलेगी, इसलिए एक मैसेज -->
+    <noscript>Please enable JavaScript to run this app.</noscript>
+    
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- महत्वपूर्ण बदलाव: बिल्ड एरर को ठीक करने के लिए '/src' हटा दिया गया है -->
+    <script type="module" src="/main.tsx"></script>
   </body>
 </html>
