@@ -1,8 +1,9 @@
 name: Build Android APK
+
 on:
   push:
-    branches: [ main ] # जब आप मेन ब्रांच में पुश करेंगे तब चलेगा
-  workflow_dispatch: # इसे आप मैन्युअली भी चला सकते हैं
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,16 +15,28 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install and Build Web Files
         run: |
           npm install
-          npm run build
+          npm run build  # मान लीजिए कि आपका आउटपुट 'dist' फोल्डर में आता है
 
-      # यहाँ हम PWA Builder या Bubblewrap का उपयोग करके APK बना सकते हैं
-      - name: Build Android APK
-        uses: pwa-builder/pwabuilder-google-play@main
+      - name: Set up Java
+        uses: actions/setup-java@v3
         with:
-          url: 'https://github.com/PKailab/math-calculator.git'
+          java-version: '17'
+          distribution: 'temurin'
+
+      # सीधे Google के Bubblewrap टूल का इस्तेमाल
+      - name: Build Android APK with Bubblewrap
+        run: |
+          npm install -g @bubblewrap/cli
+          # 'init' की जगह सीधे 'build' करना PWA प्रोजेक्ट्स के लिए बेस्ट है
+          # नोट: अगर आपके पास पहले से 'twa-manifest.json' नहीं है, तो इसे मैन्युअली चलाना होगा।
           
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: ./*.apk
