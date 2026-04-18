@@ -1,0 +1,51 @@
+/
+├── .env.example
+├── .gitignore
+├── AGENTS.md
+├── MAP.txt
+├── PROJECT_BLUEPRINT.md
+├── index.html
+├── inject_subs.cjs
+├── keyboard-layout.json
+├── keyboard-logic.md
+├── metadata.json
+├── package-lock.json
+├── package.json
+├── tsconfig.json
+├── update_keyboards.cjs
+├── update_titles.cjs
+├── vite.config.ts
+└── src/
+    ├── App.tsx
+    ├── index.css
+    ├── main.tsx
+    ├── chapters/
+    │   ├── _template_chapter.ts.example
+    │   ├── ch0_simple_calc.ts
+    │   ├── ch10_circles.ts
+    │   ├── ch12_areas_related_to_circles.ts
+    │   ├── ch13_mensuration.ts
+    │   ├── ch14_statistics.ts
+    │   ├── ch15_probability.ts
+    │   ├── ch1_real_numbers.ts
+    │   ├── ch2_polynomials.ts
+    │   ├── ch3_linear_equations.ts
+    │   ├── ch4_quadratic.ts
+    │   ├── ch5_ap.ts
+    │   ├── ch6_triangles.ts
+    │   ├── ch7_coordinate.ts
+    │   ├── ch8_trigonometry.ts
+    │   ├── ch9_applications_trigonometry.ts
+    │   ├── index.ts
+    │   └── types.ts
+    ├── components/
+    │   ├── ControlCenter.tsx
+    │   ├── Display.tsx
+    │   ├── FeatureDialogs.tsx
+    │   ├── Keyboard.tsx
+    │   ├── ModeDialog.tsx
+    │   ├── Sidebar.tsx
+    │   └── StepsDialog.tsx
+    └── utils/
+        ├── i18n.ts
+        └── mathFormats.ts

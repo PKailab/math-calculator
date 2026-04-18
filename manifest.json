@@ -1,0 +1,9 @@
+{
+  "name": "Math Calculator Pro",
+  "short_name": "MathCalc",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a202c",
+  "theme_color": "#1a202c",
+  "icons":
+}
