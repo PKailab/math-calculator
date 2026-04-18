@@ -7,11 +7,15 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
+    // यहाँ मैंने base वाली लाइन जोड़ दी है ताकि GitHub Pages पर वेबसाइट दिखने लगे
+    base: './', 
+    
     plugins: [
       react(), 
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
+        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'], // ज़रूरी एसेट्स
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg}']
         },
@@ -19,14 +23,15 @@ export default defineConfig(({mode}) => {
           name: 'Vedic Math Calculator',
           short_name: 'VedicCalc',
           description: 'A powerful math calculator for Indian curriculum.',
-          theme_color: '#000000',
+          theme_color: '#1a202c', // डार्क थीम के हिसाब से बेहतर कलर
           background_color: '#ffffff',
           display: 'standalone',
           icons: [
             {
-              src: '/icon-512.svg',
-              sizes: '192x192 512x512',
-              type: 'image/svg+xml',
+              // यहाँ चेक करें कि फाइल का नाम और फोल्डर सही है
+              src: 'icon-512.png', // svg की जगह png अक्सर ज़्यादा बेहतर काम करता है APK के लिए
+              sizes: '512x512',
+              type: 'image/png',
               purpose: 'any maskable'
             }
           ]
@@ -42,8 +47,6 @@ export default defineConfig(({mode}) => {
       },
     },
     server: {
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
     },
   };
