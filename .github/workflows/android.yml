@@ -1,0 +1,29 @@
+name: Build Android APK
+on:
+  push:
+    branches: [ main ] # जब आप मेन ब्रांच में पुश करेंगे तब चलेगा
+  workflow_dispatch: # इसे आप मैन्युअली भी चला सकते हैं
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install and Build Web Files
+        run: |
+          npm install
+          npm run build
+
+      # यहाँ हम PWA Builder या Bubblewrap का उपयोग करके APK बना सकते हैं
+      - name: Build Android APK
+        uses: pwa-builder/pwabuilder-google-play@main
+        with:
+          url: 'https://github.io' # यहाँ अपना लाइव लिंक डालें
+          
