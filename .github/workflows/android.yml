@@ -23,7 +23,7 @@ jobs:
           npm run build  # यह आपकी 'dist' फोल्डर बनाएगा
 
       - name: Build Android APK (PWABuilder)
-        uses: pwa-builder/pwabuilder-google-play@v1
+        uses: pwa-builder/pwabuilder-google-play@main
         with:
           # नोट: PWABuilder को आपकी साइट लाइव चाहिए होती है। 
           # अगर आप GitHub Actions से APK बनाना चाहते हैं, 
