@@ -15,28 +15,26 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22' # आपके प्रोजेक्ट के हिसाब से सही वर्शन
 
       - name: Install and Build Web Files
         run: |
           npm install
-          npm run build  # मान लीजिए कि आपका आउटपुट 'dist' फोल्डर में आता है
+          npm run build  # यह आपकी 'dist' फोल्डर बनाएगा
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
+      - name: Build Android APK (PWABuilder)
+        uses: pwa-builder/pwabuilder-google-play@v1
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          # नोट: PWABuilder को आपकी साइट लाइव चाहिए होती है। 
+          # अगर आप GitHub Actions से APK बनाना चाहते हैं, 
+          # तो आपको अपनी रिपॉजिटरी का GitHub Pages लिंक देना चाहिए।
+          url: 'https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/'
+          # अगर आपकी साइट किसी और लिंक पर लाइव है (जैसे Vercel), तो यहाँ वो लिंक डालें:
+          # url: 'https://your-math-calculator.vercel.app'
 
-      # सीधे Google के Bubblewrap टूल का इस्तेमाल
-      - name: Build Android APK with Bubblewrap
-        run: |
-          npm install -g @bubblewrap/cli
-          # 'init' की जगह सीधे 'build' करना PWA प्रोजेक्ट्स के लिए बेस्ट है
-          # नोट: अगर आपके पास पहले से 'twa-manifest.json' नहीं है, तो इसे मैन्युअली चलाना होगा।
-          
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
-          path: ./*.apk
+          # PWABuilder का आउटपुट आमतौर पर 'dist' या रूट में बनता है
+          path: ./**/*.apk
